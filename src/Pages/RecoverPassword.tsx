@@ -10,7 +10,7 @@ import { ForgetPasswordSchema } from "@/Validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AxiosError } from "axios";
 import { Ellipsis } from "lucide-react";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 interface IFormInput {

@@ -14,7 +14,9 @@ interface Iprops {
   _id?: string;
 }
 
-const Card = ({ url, alt, title, requirments, _id }: Iprops) => {
+
+
+const Card = ({ url, alt, title, _id }: Iprops) => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -43,7 +45,7 @@ const Card = ({ url, alt, title, requirments, _id }: Iprops) => {
         </div>
         <div className="flex flex-col gap-2">
           <div className="flex flex-col justify-between">
-            <p className="text-[#a69d9d] md:w-auto font-bold">{requirments}</p>
+            <p className="text-[#a69d9d] md:w-auto font-bold">Let's Learn Now</p>
             <h3 className="text-blue-500 text-lg">Free</h3>
           </div>
           <hr className="w-full" />
@@ -74,7 +76,7 @@ const Card = ({ url, alt, title, requirments, _id }: Iprops) => {
           onClick={handleClick}
           className="block"
         >
-          <Button className="bg-[#28A745] w-[180px] text-lg text-white mx-auto block h-11 text-center transition-all duration-300 -mb-10 hover:bg-[#0e1710] rounded-full">
+          <Button className="bg-[#28A745] w-[180px] text-lg text-white mx-auto block h-11 text-center transition-all duration-300  hover:bg-[#0e1710] rounded-full">
             Join Course
           </Button>
         </Link>

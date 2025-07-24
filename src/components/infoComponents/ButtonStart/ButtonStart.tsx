@@ -8,6 +8,7 @@ import Spinner from '@/Ui/LoadingSpinner';
 import { addEnrolledTrack } from '@/app/features/enrolledTracksSlice';
 import { clickedIdAction } from '@/app/features/clickedIdSlice';
 
+
 interface Iprops{
     typeofenroll:string
 }
@@ -53,7 +54,7 @@ const isAlreadyEnrolled = enrolledTracks.includes(ClickedId??"");
         });
 
         dispatch(clickedIdAction(ClickedId));
-        navigate('SecondPageOfRoadMap');
+        navigate('RoadMapOfFrontend');
     })
     .catch((error) => {
         toast.error('Failed to enroll. Try again later.');

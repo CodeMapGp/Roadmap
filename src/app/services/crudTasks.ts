@@ -20,14 +20,15 @@ interface ITasks {
   questions: QuestionType[];
 }
 
-interface IAnswers{
-  questionId:string,
-  answers:string[]
+interface IAnswers {
+  questionId: string;
+  selectedOptionIds: string[];
 }
 
-interface IsubmitQuiz{
-  answers:IAnswers[]
+interface IsubmitQuiz {
+  answers: IAnswers[];
 }
+
 
 export type ITasksResponse = ITasks; // 
 

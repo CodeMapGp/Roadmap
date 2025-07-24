@@ -68,9 +68,16 @@ const HomePage = () => {
   // Fetch tracks data
   const { data, isLoading } = useGetTracksQuery();
   const firstThreeTracks = data?.slice(0, 3);
+  console.log(firstThreeTracks)
+
+  const staticTrackImages = [
+  "public/frontend.jpg",
+  "public/backend.jpg",
+  "public/MachineLearning.jpg",
+];
 
   return (
-    <>
+    <div className="">
       <div className="bg-[#CFD8FF] rounded-b-xl ">
         {/* Header */}
         <div className="flex flex-col md:flex-row items-center justify-center md:justify-around px-8 py-16 mt-10">
@@ -266,17 +273,16 @@ const HomePage = () => {
       >
         <div className="flex justify-between mx-10 px-10 w-auto h-11">
           <Image
-            imageurl="src/assets/Home/lamb.png"
+            imageurl="/assets/Home/lamb.png"
             alt="error"
             className="w-[80px] h-auto"
           />
           <Image
-            imageurl="src/assets/Home/Group3.png"
+            imageurl="/assets/Home/Group3.png"
             alt="error"
             className="w-8 h-8 "
           />
         </div>
-
         <h3 className="text-center font-semibold text-4xl">Our Tracks</h3>
         <p className="text-center">Most popular tracks suggested for you</p>
         <div className="mt-10 pb-7 flex flex-col lg:flex-row items-center gap-10 justify-between overflow-hidden flex-wrap w-full">
@@ -293,20 +299,22 @@ const HomePage = () => {
             />
           </div>
 
-          <div className="flex flex-col md:flex-row gap-10 justify-center items-center flex-wrap">
+          <div className="flex flex-col md:flex-row gap-10 justify-center  items-center flex-wrap">
             {isLoading
               ? Array.from({ length: 3 }).map((_, index) => (
                   <CardTrackSkeleton key={index} />
                 ))
-              : firstThreeTracks?.map((track) => (
-                  <Card
-                    key={track._id}
-                    url="src/assets/Tracks img/Front-End.jpeg"
-                    alt={track.title}
-                    requirments={track.requirments}
-                    title={track.title}
-                    _id={track._id}
-                  />
+              : firstThreeTracks?.map((track,index) => (
+                <Card
+    key={track._id}
+    url={staticTrackImages[index % staticTrackImages.length]
+    }
+    alt={track.title}
+    requirments={track.requirments}
+    title={track.title}
+    _id={track._id}
+  />
+
                 ))}
           </div>
 
@@ -506,7 +514,7 @@ const HomePage = () => {
       </motion.div>
 
       
-    </>
+    </div>
   );
 };
 

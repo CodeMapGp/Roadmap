@@ -158,7 +158,7 @@ const Tasks = () => {
         {/* Header Section */}
         <div className="text-center mt-10  mb-12">
           <div className="flex items-center justify-center mb-6">
-            <div className="p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full">
+            <div className="p-3 bg-gradient-to-r from-[#371F5A] to-[#6f44af] rounded-full">
               <GraduationCap className="w-8 h-8 text-white" />
             </div>
           </div>
@@ -172,7 +172,7 @@ const Tasks = () => {
 
         {/* Current Path Section */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 mb-8 overflow-hidden">
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-[#371F5A] to-[#6f44af] px-8 py-6">
             <h2 className="text-2xl font-bold text-white flex items-center gap-3">
               <Target className="w-6 h-6" />
               {selectedRoadmap?.title || "Choose Your Learning Path"}
@@ -193,7 +193,7 @@ const Tasks = () => {
                   onClick={() => setSelectedRoadmap(roadmap)}
                   className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
                     selectedRoadmap?._id === roadmap._id
-                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
+                      ? "bg-gradient-to-r from-[#371F5A] to-[#6f44af] text-white shadow-lg"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
                   }`}
                 >
@@ -208,7 +208,7 @@ const Tasks = () => {
         {selectedRoadmap && Array.isArray(filteredTasks) && filteredTasks.length > 0 && (
           <div className="mb-12">
             <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-              <BookOpenCheck className="w-6 h-6 text-blue-600" />
+              <BookOpenCheck className="w-6 h-6 text-[#6f44af]" />
               Available Assessments
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -237,7 +237,7 @@ const Tasks = () => {
                     
                     <div className="flex items-center gap-2 text-gray-500 text-sm">
                       <Clock className="w-4 h-4" />
-                      <span>30 minutes</span>
+                      <span>60 minutes</span>
                     </div>
                   </div>
                   
@@ -257,7 +257,7 @@ const Tasks = () => {
             id="taskDetails"
             className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
           >
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-6">
+            <div className="bg-gradient-to-r from-[#371F5A] to-[#6f44af] px-8 py-6">
               <h3 className="text-2xl font-bold text-white">
                 Assessment Details: {selectedTask.category.title}
               </h3>
@@ -275,7 +275,7 @@ const Tasks = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="p-4 bg-blue-100 rounded-xl">
-                    <BookOpenCheck className="w-8 h-8 text-blue-600" />
+                    <BookOpenCheck className="w-8 h-8 text-[#371F5A]" />
                   </div>
                   <div>
                     <h4 className="text-xl font-bold text-gray-900 mb-1">
@@ -302,7 +302,7 @@ const Tasks = () => {
     </span>
   ) : (
     <div className="text-right">
-      <div className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all">
+      <div className="px-4 py-2 bg-gradient-to-r from-[#371F5A] to-[#6f44af] text-white rounded-lg font-medium hover:from-[#442770] hover:to-[#7e4dc6] transition-all">
         Start Assessment
       </div>
     </div>
@@ -337,7 +337,7 @@ const Tasks = () => {
                 className={`px-6 py-3 rounded-lg font-medium text-white transition-all duration-200 ${
                   isloadingStartQuiz 
                     ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl'
+                    : 'bg-gradient-to-r from-[#371F5A] to-[#6f44af] hover:from-[#442770] hover:to-[#7e4dc6] shadow-lg hover:shadow-xl'
                 }`}
               >
                 {isloadingStartQuiz ? (

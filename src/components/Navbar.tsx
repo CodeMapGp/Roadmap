@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Bell, CircleUserRound } from "lucide-react";
@@ -7,47 +7,108 @@ import Logo1 from "@/assets/Header/Rectangle 1938.png";
 import Logo2 from "@/assets/Header/Rectangle 1939.png";
 import { axiosInstance } from "@/config/axios.config";
 import { useQuery } from "@tanstack/react-query";
+
 interface INavbarProps {
   bg?: string;
 }
+
 interface IUser {
   profile_image: string;
 }
+
 const Navbar = ({ bg }: INavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const storageKey = "loggedInUser";
-  const userDataString = localStorage.getItem(storageKey);
-  const userData = userDataString ? JSON.parse(userDataString) : null;
-  const IdUser = userData && userData.id ? userData.id : null;
+  const [userData, setUserData] = useState(() => {
+    const storageKey = "loggedInUser";
+    const userDataString = localStorage.getItem(storageKey);
+    return userDataString ? JSON.parse(userDataString) : null;
+  });
+
+  // Listen for localStorage changes and custom logout events
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storageKey = "loggedInUser";
+      const userDataString = localStorage.getItem(storageKey);
+      const newUserData = userDataString ? JSON.parse(userDataString) : null;
+      setUserData(newUserData);
+      
+      // Close modal if user logged out
+      if (!newUserData) {
+        setIsOpenModal(false);
+        setIsOpen(false);
+      }
+    };
+
+    // Handle custom logout event
+    const handleLogoutEvent = () => {
+      setUserData(null);
+      setIsOpenModal(false);
+      setIsOpen(false);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('userLoggedOut', handleLogoutEvent);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('userLoggedOut', handleLogoutEvent);
+    };
+  }, []);
+
+  const IdUser = userData?.id || null;
+  
   const getUserById = async (): Promise<IUser> => {
     if (!IdUser) throw new Error("No User ID Provided");
     const { data } = await axiosInstance.get(`users/${IdUser}`);
     return data;
   };
 
-  // fetch image from database
+  // fetch image from database - disable query when no user
   const { data } = useQuery({
     queryKey: ["oneUser", IdUser],
     queryFn: getUserById,
-    enabled: !!IdUser,
+    enabled: !!IdUser && !!userData, // Only fetch when user is logged in
+    retry: false, // Don't retry if user is not logged in
   });
+
   const onLogout = async () => {
     try {
-      await axiosInstance.post("/auth/logout");
+      // Close modals first
+      setIsOpenModal(false);
+      setIsOpen(false);
+      
+      // Clear user data immediately
+      setUserData(null);
+      
+      // Clear localStorage
       localStorage.removeItem("loggedInUser");
       localStorage.removeItem("accessToken");
 
+      // Dispatch custom event for other components
+      window.dispatchEvent(new CustomEvent('userLoggedOut'));
+      
+      // Try to call logout API but don't block on it
+      axiosInstance.post("/auth/logout").catch(err => {
+        console.warn("Logout API call failed:", err);
+      });
+
+      // Navigate after a brief delay
       setTimeout(() => {
-        location.replace("/");
-      }, 1500);
+        window.location.replace("/login");
+      }, 100);
     } catch (err) {
       console.error("Logout failed", err);
+      // Ensure cleanup even if something fails
       localStorage.removeItem("loggedInUser");
       localStorage.removeItem("accessToken");
-      location.replace("/login");
+      setUserData(null);
+      setIsOpenModal(false);
+      setIsOpen(false);
+      window.location.replace("/login");
     }
   };
+
   return (
     <nav
       className={`w-full p-3 shadow-md rounded-b-3xl ${bg} fixed top-0 left-0 right-0 z-50`}
@@ -171,14 +232,11 @@ const Navbar = ({ bg }: INavbarProps) => {
                   <ProfileMenuModal
                     isOpen={isOpenModal}
                     onClose={() => setIsOpenModal(false)}
+                    onLogout={onLogout} // Pass logout function to modal
                   />
                 </div>
               )}
             </div>
-            {/* <Button className="cursor-pointer" onClick={onLogout}>
-              {" "}
-              Logout
-            </Button> */}
           </div>
         ) : (
           // Buttons (Desktop)
@@ -205,7 +263,6 @@ const Navbar = ({ bg }: INavbarProps) => {
       </div>
 
       {/* Mobile Navigation (Dropdown) */}
-
       <div
         className={`absolute top-16 left-0  w-[300px] min-h-screen bg-[#371F5A] text-white md:hidden transition-all duration-300 ease-in-out  ${
           isOpen

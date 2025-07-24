@@ -20,7 +20,7 @@ interface IRefreshResponse {
     
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://b684-102-189-220-226.ngrok-free.app/',
+    baseUrl: 'https://codemap-production.up.railway.app/',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
     const state = getState() as RootState;

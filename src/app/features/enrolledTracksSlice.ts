@@ -7,7 +7,6 @@ interface EnrolledTracksState {
 
 const initialState: EnrolledTracksState = {};
 
-
 const enrolledTracksSlice = createSlice({
   name: "enrolledTracks",
   initialState,

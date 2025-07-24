@@ -3,7 +3,7 @@ import ContentOfPage from "@/components/SideBarOfCourses/PageLessonContent";
 import Sidebar from "@/components/SideBarOfCourses/SideBar";
 import { axiosInstance } from "@/config/axios.config";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 interface IStage {
@@ -36,6 +36,7 @@ const CoursePage = () => {
     title: "",
     duration: 0,
   });
+
   console.log(selectedVideo)
 
   const getLessonById = async (): Promise<ILessonResponse> => {
@@ -50,21 +51,33 @@ const CoursePage = () => {
     enabled: !!ClickedIdLesson,
   });
 
+  useEffect(() => {
+    if (data && !isLoading && selectedVideo.videoUrl === "") {
+      setSelectedVideo({
+        videoUrl: data.link,
+        title: data.title,
+        duration: data.lesson_duration,
+      });
+    }
+  }, [data, isLoading, selectedVideo.videoUrl]);
+
   return (
-    <div className="flex flex-col-reverse lg:flex-row w-full">
+    <div className="flex flex-col-reverse lg:flex-row w-full min-h-screen bg-gradient-to-br from-[#CFD8FF]/10 to-white">
       <Sidebar setSelectedVideo={setSelectedVideo} />
-      <ContentOfPage
-        currentLessonId={ClickedIdLesson ?? ""}
-        videoUrl={data?.link ?? ""}
-        title={data?.title ?? ""}
-        LastEdit={data?.updatedAt ?? ""}
-        description={data?.description ?? ""}
-        duration={data?.lesson_duration ?? 0}
-        titleofLesson={data?.title ?? ""}
-        titleofStatge={data?.stage?.title ?? ""}
-        isloading={isLoading}
-        userId={IdUser}
-      />
+      <div className="flex-1 overflow-hidden">
+        <ContentOfPage
+          currentLessonId={ClickedIdLesson ?? ""}
+          videoUrl={selectedVideo.videoUrl || data?.link || ""}
+          title={selectedVideo.title || data?.title || ""}
+          LastEdit={data?.updatedAt ?? ""}
+          description={data?.description ?? ""}
+          duration={selectedVideo.duration || data?.lesson_duration || 0}
+          titleofLesson={selectedVideo.title || data?.title || ""}
+          titleofStatge={data?.stage?.title ?? ""}
+          isloading={isLoading}
+          userId={IdUser}
+        />
+      </div>
     </div>
   );
 };

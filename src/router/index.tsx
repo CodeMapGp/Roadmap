@@ -25,7 +25,6 @@ import RoadmapLayout from "@/Pages/TrackLayout/roadmapLayout/RoadmapLayout";
 import RoadMapOfFrontend from "@/Pages/TrackLayout/roadmapLayout/RoadMapOfFrontend";
 import CoursePage from "@/Pages/TrackLayout/roadmapLayout/CoursePage";
 import Setting from "@/Pages/Setting";
-
 import RecoverPassword from "@/Pages/RecoverPassword";
 import Test from "@/Pages/test";
 import ChatbotLayout from "@/Pages/Chatbot/ChatbotLayout";
@@ -34,6 +33,7 @@ import ServicesPage from "@/Pages/Chatbot/ServicesPage";
 import TaskForm from "@/Pages/TaskForm";
 import ResetPassword from "@/Pages/ResetPassword";
 import PageNotFound from "@/components/PageNotFound/PageNotFound";
+
 
 const storageKey = "loggedInUser";
 const userDataString = localStorage.getItem(storageKey);
@@ -72,7 +72,7 @@ const router = createBrowserRouter(
           } 
             />
           <Route
-            path="InfoOfFrontend/SecondPageOfRoadMap"
+            path="InfoOfFrontend/roadMapoffrontend"
             element={<RoadmapLayout />}
           >
             <Route index element={

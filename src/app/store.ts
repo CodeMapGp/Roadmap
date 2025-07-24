@@ -15,6 +15,7 @@ import watchedLessonsSlice from './features/WatchedLesson'
 import taskSlice from './features/taskSlice'
 import currentTaskIdSlice from './features/CurrentTaskIdSlice'
 import enrolledTracksSlice from './features/enrolledTracksSlice'
+import completedTasksSlice from './features/CompetedTaskSlice' 
 
 const persistAccessTokenConfig = {
     key: "accessToken",
@@ -49,6 +50,11 @@ const persistenrolledTracks = {
     storage,
 };
 
+const persistcompletedTasks = {
+    key: "completedTasks",
+    storage,
+};
+
 const persistedaccessToken=persistReducer(persistAccessTokenConfig,AccessTokenSlice)
 const persistedclickedId=persistReducer(persistclickedIdConfig,clickedIdSlice)
 const persistedclickedIdLesson=persistReducer(persistclickedIdLessonConfig,clickedIdLessonSlice)
@@ -56,6 +62,7 @@ const persistedwatchedLessons=persistReducer(persistwatchedLessonsConfig,watched
 const persistedTasks=persistReducer(persistTasks,taskSlice)
 const persistedCurrentTaskId=persistReducer(persistCuurentTaskId,currentTaskIdSlice)
 const persistedenrolledTracks=persistReducer(persistenrolledTracks,enrolledTracksSlice)
+const persistedcompletedTasks=persistReducer(persistcompletedTasks,completedTasksSlice)
 
 
 
@@ -64,6 +71,7 @@ export const store = configureStore({
         watchedLessons: persistedwatchedLessons,
         enrolledTracks:persistedenrolledTracks,
         tasks:persistedTasks,
+        completedTasks:persistedcompletedTasks,
         accessToken:persistedaccessToken,
         clickedId:persistedclickedId,
         clickedIdLesson:persistedclickedIdLesson,

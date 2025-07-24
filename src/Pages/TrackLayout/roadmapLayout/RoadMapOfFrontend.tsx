@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import GlobelLoading from "@/Ui/LoadingGlable/LoadingGlable";
 
+
 interface Icategory {
   _id: string;
   title: string;
@@ -68,7 +69,6 @@ const RoadMapOfFrontend = () => {
               key={_id}
               className="relative flex flex-col items-center md:grid md:grid-cols-3 md:items-start min-h-fit"
             >
-              {/* الكارت يظهر في النص في الموبايل */}
               <div
                 className={`flex justify-center w-full ${
                   order % 2 === 0 ? "md:invisible" : ""
@@ -84,7 +84,6 @@ const RoadMapOfFrontend = () => {
                 )}
               </div>
 
-              {/* النقطة للديسكتوب فقط */}
               <div className="hidden md:flex justify-center relative min-h-[350px]">
                 <CircleSmall
                   fill="#DE00A5"

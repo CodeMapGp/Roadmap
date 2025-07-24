@@ -28,7 +28,7 @@ const CardOfRoadMap = ({
   const ref = useRef<HTMLDivElement>(null);
 
   const NavigateToCourse = () => {
-    Navigate("/tracks/InfoOfFrontend/SecondPageOfRoadMap/coursefrontend");
+    Navigate("/tracks/InfoOfFrontend/roadMapoffrontend/coursefrontend");
   };
 
   const ToggleCard = () => {

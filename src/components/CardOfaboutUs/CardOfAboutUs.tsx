@@ -1,5 +1,4 @@
 
-import React from "react";
 import './CardOfAboutUs.css'
 import { IAboutUsInfo } from "@/interfaces";
 const CardOfaboutUs = ({
